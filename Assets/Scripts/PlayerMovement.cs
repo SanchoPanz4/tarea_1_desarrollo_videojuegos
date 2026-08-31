@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     private Vector3 inputDirection;
+    private List<Vector3> pressedDirections = new List<Vector3>();
 
     void Start()
     {
@@ -15,22 +18,42 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        inputDirection = Vector3.zero;
-
         var keyboard = Keyboard.current;
         if (keyboard == null) return;
 
-        if (keyboard.upArrowKey.isPressed)    inputDirection += Vector3.forward;
-        if (keyboard.downArrowKey.isPressed)  inputDirection += Vector3.back;
-        if (keyboard.leftArrowKey.isPressed)  inputDirection += Vector3.left;
-        if (keyboard.rightArrowKey.isPressed) inputDirection += Vector3.right;
+        HandleKey(keyboard.upArrowKey, Vector3.forward);
+        HandleKey(keyboard.downArrowKey, Vector3.back);
+        HandleKey(keyboard.leftArrowKey, Vector3.left);
+        HandleKey(keyboard.rightArrowKey, Vector3.right);
 
-        inputDirection = inputDirection.normalized;
+        // Usa SOLO la ultima direccion que sigue apretada (nada de diagonales)
+        inputDirection = pressedDirections.Count > 0
+            ? pressedDirections[pressedDirections.Count - 1]
+            : Vector3.zero;
+    }
+
+    void HandleKey(KeyControl key, Vector3 direction)
+    {
+        if (key.wasPressedThisFrame)
+        {
+            pressedDirections.Remove(direction); // evita duplicados
+            pressedDirections.Add(direction);    // la mas reciente queda al final
+        }
+        else if (key.wasReleasedThisFrame)
+        {
+            pressedDirections.Remove(direction); // al soltar, cae a la anterior si sigue apretada
+        }
     }
 
     void FixedUpdate()
     {
         Vector3 newPosition = rb.position + inputDirection * speed * Time.fixedDeltaTime;
         rb.MovePosition(newPosition);
+
+        if (inputDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(inputDirection, Vector3.up);
+            rb.MoveRotation(targetRotation);
+        }
     }
 }
