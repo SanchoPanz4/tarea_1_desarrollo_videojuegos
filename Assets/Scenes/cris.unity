@@ -439,8 +439,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 138875542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
 --- !u!1 &25771630
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +551,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 138875542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> origin/pcastillom
 --- !u!1 &70619960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,8 +1141,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 138875542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
 --- !u!1 &172849164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,7 +1253,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172849164}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
->>>>>>> origin/pcastillom
 --- !u!1 &178131210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2719,8 +2713,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8169803483029310473, guid: ba0c97c1ef26bdc4788596596edf7fa9, type: 3}
   m_PrefabInstance: {fileID: 2582816627140001641}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-=======
   m_GameObject: {fileID: 578147225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2782,7 +2774,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
->>>>>>> origin/pcastillom
 --- !u!1 &634329652
 GameObject:
   m_ObjectHideFlags: 0
@@ -5575,60 +5566,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 294777780}
-<<<<<<< HEAD
-  - {fileID: 999291258}
-  - {fileID: 178131214}
-  - {fileID: 1162718782}
-  - {fileID: 1432215878}
-  - {fileID: 1778820824}
-  - {fileID: 1608958417}
-  - {fileID: 844028109}
-  - {fileID: 538177276}
-  - {fileID: 1864059344}
-  - {fileID: 1112924699}
-  - {fileID: 438377954}
-  - {fileID: 439008702}
-  - {fileID: 656492629}
-  - {fileID: 166340817}
-  - {fileID: 2072998045}
-  - {fileID: 1569457996}
-  - {fileID: 729857209}
-  - {fileID: 1976625385}
-  - {fileID: 1655210413}
-  - {fileID: 915938397}
-  - {fileID: 665789506}
-  - {fileID: 1274774151}
-  - {fileID: 1324349930}
-  - {fileID: 1740752}
-  - {fileID: 124963484}
-  - {fileID: 1497808857}
-  - {fileID: 1146220415}
-  - {fileID: 1589328516}
-  - {fileID: 369691749}
-  - {fileID: 1990025978}
-  - {fileID: 990129814}
-  - {fileID: 804017935}
-  - {fileID: 1502373758}
-  - {fileID: 907886485}
-  - {fileID: 951698929}
-  - {fileID: 332180922}
-  - {fileID: 932657088}
-  - {fileID: 2138739850}
-  - {fileID: 24926672}
-  - {fileID: 1072632910}
-  - {fileID: 401336800}
-  - {fileID: 1876043076}
-  - {fileID: 840013712}
-  - {fileID: 70619964}
-  - {fileID: 1304867050}
-  - {fileID: 833039595}
-  - {fileID: 634329656}
-  - {fileID: 187152040}
-  - {fileID: 549265658}
-  - {fileID: 790167352}
-=======
   - {fileID: 138875542}
->>>>>>> origin/pcastillom
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1324349926
@@ -6987,13 +6925,8 @@ Transform:
   m_GameObject: {fileID: 1880963136}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-<<<<<<< HEAD
-  m_LocalPosition: {x: 0.278, y: 0, z: 29.560001}
-  m_LocalScale: {x: 0.041666668, y: 1, z: 12}
-=======
   m_LocalPosition: {x: 10.14963, y: 0, z: 4.8695908}
   m_LocalScale: {x: 0.5, y: 0.1, z: 6}
->>>>>>> origin/pcastillom
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 138875542}
