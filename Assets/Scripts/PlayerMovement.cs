@@ -8,12 +8,14 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 5f;
 
     private Rigidbody rb;
+    private AudioSource audioSource;
     private Vector3 inputDirection;
     private List<Vector3> pressedDirections = new List<Vector3>();
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -26,22 +28,39 @@ public class PlayerMovement : MonoBehaviour
         HandleKey(keyboard.leftArrowKey, Vector3.left);
         HandleKey(keyboard.rightArrowKey, Vector3.right);
 
-        // Usa SOLO la ultima direccion que sigue apretada (nada de diagonales)
         inputDirection = pressedDirections.Count > 0
             ? pressedDirections[pressedDirections.Count - 1]
             : Vector3.zero;
+
+        HandleMovementSound();
     }
 
     void HandleKey(KeyControl key, Vector3 direction)
     {
         if (key.wasPressedThisFrame)
         {
-            pressedDirections.Remove(direction); // evita duplicados
-            pressedDirections.Add(direction);    // la mas reciente queda al final
+            pressedDirections.Remove(direction);
+            pressedDirections.Add(direction);
         }
         else if (key.wasReleasedThisFrame)
         {
-            pressedDirections.Remove(direction); // al soltar, cae a la anterior si sigue apretada
+            pressedDirections.Remove(direction);
+        }
+    }
+
+    void HandleMovementSound()
+    {
+        if (audioSource == null) return;
+
+        if (inputDirection != Vector3.zero)
+        {
+            if (!audioSource.isPlaying)
+                audioSource.Play();
+        }
+        else
+        {
+            if (audioSource.isPlaying)
+                audioSource.Pause();
         }
     }
 
