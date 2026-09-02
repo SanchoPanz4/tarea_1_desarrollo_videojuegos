@@ -3,52 +3,76 @@ using UnityEngine;
 public class FantasmaSensores : MonoBehaviour
 {
     public Transform jugador;
-    public float velFantasma = 3f;
-
     public SensorDireccion sensorEste;
     public SensorDireccion sensorOeste;
     public SensorDireccion sensorNorte;
     public SensorDireccion sensorSur;
-
+    public float velFantasma = 4.5f;
     private Vector3 direccionActual = Vector3.right;
 
     void Update()
     {
+        if (jugador == null) return;
+        
         ElegirCamino();
         transform.position += direccionActual * velFantasma * Time.deltaTime;
     }
 
     void ElegirCamino()
     {
-        // para que no tiemble entre 2 direcciones
-        if (!EstaBloqueada(direccionActual) && Random.value > 0.3f) return;
+        if (EstaBloqueada(direccionActual))
+        {
+            direccionActual = BuscarMejorDireccion(true);
+            return;
+        }
+        if (Random.value > 0.1f) return; 
 
-        Vector3 mejorDir = direccionActual;
+        Vector3 nueva = BuscarMejorDireccion(false);
+        if (nueva != Vector3.zero) direccionActual = nueva;
+    }
+
+    Vector3 BuscarMejorDireccion(bool permitirVolverse)
+    {
+        Vector3 opuesta = -direccionActual;
+        Vector3 mejorDir = Vector3.zero;
         float distMin = Mathf.Infinity;
 
-        // Revisamos las 4 direcciones
-        if (!sensorEste.bloqueado)
+        var dirs = new (Vector3 dir, SensorDireccion sensor)[]
         {
-            float d = Vector3.Distance(transform.position + Vector3.right, jugador.position);
-            if (d < distMin) { distMin = d; mejorDir = Vector3.right; }
-        }
-        if (!sensorOeste.bloqueado)
+            (Vector3.right, sensorEste),
+            (Vector3.left, sensorOeste),
+            (Vector3.forward, sensorNorte),
+            (Vector3.back, sensorSur)
+        };
+
+        foreach (var d in dirs)
         {
-            float d = Vector3.Distance(transform.position + Vector3.left, jugador.position);
-            if (d < distMin) { distMin = d; mejorDir = Vector3.left; }
-        }
-        if (!sensorNorte.bloqueado)
-        {
-            float d = Vector3.Distance(transform.position + Vector3.forward, jugador.position);
-            if (d < distMin) { distMin = d; mejorDir = Vector3.forward; }
-        }
-        if (!sensorSur.bloqueado)
-        {
-            float d = Vector3.Distance(transform.position + Vector3.back, jugador.position);
-            if (d < distMin) { distMin = d; mejorDir = Vector3.back; }
+            if (d.sensor.bloqueado) continue;
+            if (!permitirVolverse && d.dir == opuesta) continue;
+
+            float dist = Vector3.Distance(transform.position + d.dir, jugador.position);
+            if (dist < distMin)
+            {
+                distMin = dist;
+                mejorDir = d.dir;
+            }
         }
 
-        direccionActual = mejorDir;
+        if (mejorDir == Vector3.zero)
+        {
+            foreach (var d in dirs)
+            {
+                if (d.sensor.bloqueado) continue;
+                float dist = Vector3.Distance(transform.position + d.dir, jugador.position);
+                if (dist < distMin)
+                {
+                    distMin = dist;
+                    mejorDir = d.dir;
+                }
+            }
+        }
+
+        return mejorDir == Vector3.zero ? direccionActual : mejorDir;
     }
 
     bool EstaBloqueada(Vector3 dir)
@@ -59,4 +83,17 @@ public class FantasmaSensores : MonoBehaviour
         if (dir == Vector3.back)    return sensorSur.bloqueado;
         return false;
     }
+    
+    public void ResetearDireccion()
+    {
+        direccionActual = Vector3.right;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            FindObjectOfType<GameManager>().MatarJugador();
+        }
+    }
+
 }
