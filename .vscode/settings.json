@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "tarea_1.slnx"
+    "dotnet.defaultSolution": "tarea_1_desarrollo_videojuegos.slnx"
 }
